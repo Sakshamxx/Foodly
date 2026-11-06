@@ -156,7 +156,9 @@ export async function POST(request: Request) {
   let sections: Map<string, string>;
   try {
     const document = await loadPolicyDocument();
-    systemPrompt = buildSystemPrompt(document);
+    systemPrompt = buildSystemPrompt(document, {
+      isFirstTurn: conversation.length === 0,
+    });
     sections = document.sections;
   } catch (error) {
     console.error("Could not load the Foodly policy document:", error);
